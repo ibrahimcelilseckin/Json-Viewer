@@ -40,7 +40,7 @@ document.querySelector('.download-button').addEventListener('click', function ()
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'data.json';
+    a.download = 'OrganizedData.json';
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
