@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,23 +10,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/dracula.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
     <header>
         <div class="logo">
             <h1 class="jsonlogo">Json Viewer</h1>
         </div>
     </header>
+    <div class="editor-controls">
+        <div class="left-editor-control">
+            <button class="sample-button"><i class="bx bx-code-alt"></i> Sample</button>
+            <button class="tree-button"><i class="bx bx-tree"></i> Tree</button>
+            <button class="copy-button"><i class="bx bx-copy"></i> Kopyala</button>
+            <button class="delete-button"><i class="bx bxs-trash-alt"></i> Sil</button>
+            <input type="file" id="file-input" style="display: none;">
+            <button class="load-file-button"><i class="bx bx-upload"></i> Dosya Yükle</button>
+        </div>
+
+    </div>
     <div class="editor-container">
         <div class="left-editor">
             <textarea id="left-editor" class="editor"></textarea>
-            <div class="editor-controls">
-                <button class="sample-button"><i class="bx bx-code-alt"></i> Sample</button>
-                <button class="tree-button"><i class="bx bx-tree"></i> Tree</button>
-                <button class="copy-button"><i class="bx bx-copy"></i> Kopyala</button>
-                <button class="delete-button"><i class="bx bxs-trash-alt"></i> Sil</button>
-                <input type="file" id="file-input" style="display: none;">
-                <button class="load-file-button"><i class="bx bx-upload"></i> Dosya Yükle</button>
-            </div>
+
         </div>
         <div class="right-editor">
             <textarea id="right-editor" class="editor" readonly></textarea>
@@ -36,10 +42,11 @@
             </div>
         </div>
     </div>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/json/json.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
