@@ -28,22 +28,24 @@ header {
     justify-content: center;
     align-items: center;
     margin-top: 30px;
+    gap: 30px;
 }
 
 .left-editor,
 .right-editor {
     width: 45%;
-    margin: 0 15px;
     position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #0d320d;
+    box-shadow: 0 0 5px #00ff00, 0 0 40px #00ff00, 0 0 80px #00ff00;
+    transition: box-shadow 0.3s ease;
 }
 
 .editor-controls {
     position: absolute;
     top: 10px;
     right: 10px;
-}
-.right-editor-controls{
-    
 }
 
 .editor-controls button {
@@ -66,6 +68,10 @@ header {
     width: 100%;
     height: 400px;
     resize: none;
+    background-color: #0d320d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -91,19 +97,21 @@ header {
     }
 }
 
-.left-editor,
-.right-editor {
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #0d320d;
-    box-shadow: 0 0 5px #00ff00, 0 0 40px #00ff00, 0 0 80px #00ff00;
-    transition: box-shadow 0.3s ease;
-}
-
 .left-editor:hover,
 .right-editor:hover {
-    box-shadow: 0 0 10px #00ff00, 0 0 10px #00ff00, 0 0 30px #00ff00;
+    box-shadow: 0 0 10px #00ff00, 0 0 30px #00ff00, 0 0 60px #00ff00;
 }
+
+#tree-view {
+    width: 50%;
+    height: 400px; /* Daha tutarlı bir yükseklik değeri */
+    border: 4px solid green;
+    overflow: auto;
+    color: #fff;
+    background-color: #0F0F0F; /* Arka plan rengini ağaç görünümüne uyacak şekilde güncelledik */
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.5); /* Gölge efekti */
+}
+
 
 @keyframes fadeIn {
     from {

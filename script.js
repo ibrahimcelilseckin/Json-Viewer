@@ -27,7 +27,6 @@ document.querySelectorAll('.copy-button').forEach(function (button) {
     });
 });
 
-
 // Sil butonu işlevi
 document.querySelectorAll('.delete-button').forEach(function (button) {
     button.addEventListener('click', function () {
@@ -39,7 +38,6 @@ document.querySelectorAll('.delete-button').forEach(function (button) {
         }
     });
 });
-
 
 // İndirme butonu işlevi
 document.querySelector('.download-button').addEventListener('click', function () {
@@ -61,13 +59,44 @@ document.querySelector('.sample-button').addEventListener('click', function () {
     leftEditor.setValue(sampleJson);
 });
 
+// JSON verisini JsTree formatına dönüştür
+function jsonToJsTree(node) {
+    let result = [];
+    for (const [key, value] of Object.entries(node)) {
+        let item = { "text": key };
+        if (typeof value === 'object' && !Array.isArray(value)) {
+            item["children"] = jsonToJsTree(value);
+        } else if (Array.isArray(value)) {
+            item["children"] = value.map((val, index) => ({
+                "text": `${index}: ${JSON.stringify(val)}`,
+                "icon": "jstree-icon jstree-file"
+            }));
+        } else {
+            item["text"] = `${key}: ${value}`;
+        }
+        result.push(item);
+    }
+    return result;
+}
 
 // Tree butonu 
 document.querySelector('.tree-button').addEventListener('click', function () {
     try {
         var json = JSON.parse(leftEditor.getValue());
-        var treeJson = JSON.stringify(json, null, 2);
-        rightEditor.setValue(treeJson);
+
+        var treeData = jsonToJsTree(json);
+
+        // JsTree'yi başlat ve veriyi yükle
+        $('#tree-view').jstree({
+            'core': {
+                'data': treeData
+            }
+        });
+
+        // Ağaç görünümünü göster
+        document.getElementById('tree-view').style.display = 'block';
+        document.querySelector('.right-editor').style.display = 'none';
+
     } catch (e) {
         rightEditor.setValue("Geçersiz JSON");
     }
@@ -94,7 +123,27 @@ leftEditor.on("change", function () {
         var json = JSON.parse(leftEditor.getValue());
         var formattedJson = JSON.stringify(json, null, 2);
         rightEditor.setValue(formattedJson);
+
+        // Json verisi değiştiğinde JsTree'yi güncelle
+        var treeData = jsonToJsTree(json);
+        $('#tree-view').jstree(true).settings.core.data = treeData;
+        $('#tree-view').jstree(true).refresh();
+
     } catch (e) {
         rightEditor.setValue("Geçersiz JSON");
+    }
+});
+
+// Sağ editörü ve JsTree'yi göster/gizle butonu
+document.querySelector('.toggle-view-button').addEventListener('click', function () {
+    var treeView = document.getElementById('tree-view');
+    var rightEditorContainer = document.querySelector('.right-editor');
+
+    if (treeView.style.display === 'none') {
+        treeView.style.display = 'block';
+        rightEditorContainer.style.display = 'none';
+    } else {
+        treeView.style.display = 'none';
+        rightEditorContainer.style.display = 'block';
     }
 });
