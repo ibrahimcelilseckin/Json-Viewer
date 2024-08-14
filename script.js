@@ -17,21 +17,29 @@ var rightEditor = CodeMirror.fromTextArea(document.getElementById("right-editor"
 // Kopyala butonu işlevi
 document.querySelectorAll('.copy-button').forEach(function (button) {
     button.addEventListener('click', function () {
-        var editor = this.closest('.editor').querySelector('textarea');
-        editor.select();
-        document.execCommand('copy');
+        var editor = this.closest('.editor-container').querySelector('.CodeMirror').CodeMirror;
+        var content = editor.getValue();
+        navigator.clipboard.writeText(content).then(function () {
+            console.log('Kopyalandı');
+        }).catch(function (err) {
+            console.error('Kopyalama hatası: ', err);
+        });
     });
 });
+
 
 // Sil butonu işlevi
 document.querySelectorAll('.delete-button').forEach(function (button) {
     button.addEventListener('click', function () {
-        var editor = this.closest('.editor').querySelector('textarea');
-        editor.value = '';
-        // Sol editördeki değişiklikleri sağ editöre aktar
-        leftEditor.trigger("change");
+        var editor = this.closest('.editor-container').querySelector('.CodeMirror').CodeMirror;
+        if (editor === leftEditor) {
+            leftEditor.setValue('');
+        } else if (editor === rightEditor) {
+            rightEditor.setValue('');
+        }
     });
 });
+
 
 // İndirme butonu işlevi
 document.querySelector('.download-button').addEventListener('click', function () {
@@ -49,22 +57,10 @@ document.querySelector('.download-button').addEventListener('click', function ()
 
 // Sample butonu 
 document.querySelector('.sample-button').addEventListener('click', function () {
-    var sampleJson = `{
-  "name": "John Doe",
-  "age": 30,
-  "email": "john@example.com",
-  "address": {
-    "street": "123 Main Street",
-    "city": "Anytown",
-    "zipcode": "12345"
-  },
-  "phoneNumbers": [
-    "+1234567890",
-    "+9876543210"
-  ]
-}`;
+    var sampleJson = `{"name":"John Doe","age":30,"email":"john@example.com","address":{"street":"123 Main Street","city":"Anytown","zipcode":"12345"},"phoneNumbers":["+1234567890","+9876543210"]}`;
     leftEditor.setValue(sampleJson);
 });
+
 
 // Tree butonu 
 document.querySelector('.tree-button').addEventListener('click', function () {
