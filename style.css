@@ -163,7 +163,7 @@ header {
 
 #tree-view {
     width: 50%;
-    height: 400px; /* Daha tutarlı bir yükseklik değeri */
+    height: 350px; /* Daha tutarlı bir yükseklik değeri */
     border: 4px solid green;
     overflow: auto;
     color: #fff;
