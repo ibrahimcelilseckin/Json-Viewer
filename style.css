@@ -38,31 +38,76 @@ header {
     padding: 20px;
     border-radius: 10px;
     background-color: #0d320d;
-    box-shadow: 0 0 5px #00ff00, 0 0 40px #00ff00, 0 0 80px #00ff00;
+    box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 10px #00ff00;
     transition: box-shadow 0.3s ease;
 }
-
-.editor-controls {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+.left-controls{
+    position: fixed;
+    width: 55%;
+    margin-top: 450px;
+    margin-right: 760px;
+    
+}
+.left-controls button {
+    background-color: #007bff; /* Arka plan rengi */
+    color: black;              /* Metin rengi */
+    border: 2px solid #007bff; /* Kenarlık rengi ve kalınlığı */
+    padding: 5px 15px;       /* İç boşluk (üst-alt ve sağ-sol) */
+    margin: 2px;              /* Dış boşluk */
+    cursor: pointer;          /* Farenin üzerinde gezdiğinde işaretçi değişir */
+    border-radius: 8px;       /* Köşeleri yuvarlatma */
+    font-size: 13px;          /* Yazı tipi boyutu */
+    font-weight: 800;         /* Yazı tipi kalınlığı */
+    text-transform: uppercase; /* Metni büyük harfe dönüştürme */
+    transition: all 0.3s ease; /* Geçiş efekti */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+    font-family: "Poppins", sans-serif;
 }
 
-.editor-controls button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
+.left-controls button:hover {
+    background-color: #0056b3; /* Hover durumunda arka plan rengi değişir */
+    border-color: #0056b3;     /* Kenarlık rengi değişir */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hover durumunda gölge efekti artar */
 }
 
-.editor-controls button i {
-    margin-right: 5px;
+.left-controls button:active {
+    background-color: #004494; /* Tıklama durumunda arka plan rengi değişir */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Tıklama durumunda gölge efekti azaltılır */
 }
+
+.right-controls{
+    position: fixed;
+    margin-top: 450px;
+    margin-left: 1000px;
+}
+.right-controls button {
+    background-color: #007bff; /* Arka plan rengi */
+    color: black;              /* Metin rengi */
+    border: 2px solid #007bff; /* Kenarlık rengi ve kalınlığı */
+    padding: 5px 20px;       /* İç boşluk (üst-alt ve sağ-sol) */
+    margin: 5px;              /* Dış boşluk */
+    cursor: pointer;          /* Farenin üzerinde gezdiğinde işaretçi değişir */
+    border-radius: 8px;       /* Köşeleri yuvarlatma */
+    font-size: 13px;          /* Yazı tipi boyutu */
+    font-weight: 800;         /* Yazı tipi kalınlığı */
+    text-transform: uppercase; /* Metni büyük harfe dönüştürme */
+    transition: all 0.3s ease; /* Geçiş efekti */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+    font-family: "Poppins", sans-serif;
+}
+
+.right-controls button:hover {
+    background-color: #0056b3; /* Hover durumunda arka plan rengi değişir */
+    border-color: #0056b3;     /* Kenarlık rengi değişir */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hover durumunda gölge efekti artar */
+}
+
+.right-controls button:active {
+    background-color: #004494; /* Tıklama durumunda arka plan rengi değişir */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Tıklama durumunda gölge efekti azaltılır */
+}
+
+
 
 .editor-container textarea {
     width: 100%;
@@ -96,10 +141,21 @@ header {
         margin: 0 5px;
     }
 }
-.SOCRADAR{
-    width: 100%;
-    height: 100%;
+.logo-container {
+    width: 100%;       /* Tüm satırı kapla */
+    height: 100px;     /* 100px yükseklik */
+    display: flex;     /* İçeriği hizalamak için flexbox kullan */
+    align-items: center;  /* İçeriği dikey olarak ortala */
+    padding-left: 20px;   /* Sol taraftan bir miktar boşluk ekle (isteğe bağlı) */
 }
+
+/* Logo görüntüsü */
+.site-logo {
+    width: 300px;      /* 300px genişlik */
+    height: 100px;     /* 100px yükseklik */
+    object-fit: contain; /* Görüntünün oranını koruyarak sığmasını sağlar */
+}
+
 .left-editor:hover,
 .right-editor:hover {
     box-shadow: 0 0 10px #00ff00, 0 0 30px #00ff00, 0 0 60px #00ff00;

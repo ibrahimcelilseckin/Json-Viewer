@@ -14,6 +14,9 @@
 
 <body>
     <header>
+        <div class="logo-container">
+            <img src="image/SOCRadarlogo.png" alt="SOCRADAR" class="site-logo">
+        </div>
         <div class="logo">
             <h1 class="jsonlogo">Json Viewer</h1>
         </div>
@@ -21,34 +24,32 @@
     
     <div class="editor-container">
         <div class="left-editor">
-            
             <textarea id="left-editor" class="editor"></textarea>
-            <div class="editor-controls">
-                <div class="left-editor-control">
-                    <button class="sample-button"><i class="bx bx-code-alt"></i> Sample</button>
-                    <button class="tree-button"><i class="bx bx-tree"></i> Tree</button>
-                    <button class="copy-button"><i class="bx bx-copy"></i> Kopyala</button>
-                    <button class="delete-button"><i class="bx bxs-trash-alt"></i> Sil</button>
-                    <button class="toggle-view-button"><i class="bx bx-toggle-right"></i> Görünüm Değiştir</button>
-                    <input type="file" id="file-input" style="display: none;">
-                    <button class="load-file-button"><i class="bx bx-upload"></i> Dosya Yükle</button>
-                </div>
-            </div>
         </div>
+        <div class="left-controls">
+            <button class="sample-button"> <i class="bx bx-code-alt"></i> Sample</button>
+            <button class="tree-button"><i class="bx bx-tree"></i> Tree</button>
+            <button class="copy-button"><i class="bx bx-copy"></i> Copy</button>
+            <button class="delete-button"><i class="bx bxs-trash-alt"></i> Delete</button>
+            <button class="toggle-view-button"> Minify (Compress)</button>
+            <button class="beautify-button"> Beautify </button>
+            <button class="validate-button">Validate</button>
+            <input type="file" id="file-input" style="display: none;">
+            <button class="load-file-button"><i class="bx bx-upload"></i> Upload File</button>
+        </div>
+
+        <div id="tree-view" style="display: none;"></div>
+
         <div class="right-editor">
             <textarea id="right-editor" class="editor" readonly></textarea>
-            <div class="editor-controls">
-                <button class="copy-button"><i class="bx bx-copy"></i> Kopyala</button>
-                <button class="delete-button"><i class="bx bxs-trash-alt"></i> Sil</button>
-                <button class="download-button"><i class="bx bx-download"></i> İndir</button>
-            </div>
         </div>
-        <div id="tree-view" style="display: none;"></div>
+        <div class="right-controls">
+            <button class="copy-button-right"><i class="bx bx-copy"></i> Copy</button>
+            <button class="delete-button"><i class="bx bxs-trash-alt"></i> Delete</button>
+            <button class="download-button"><i class="bx bx-download"></i> Download</button>
+        </div>
     </div>
-    <footer>
-        <p></p>
-        <img src="image/SOCRadarlogo.png" alt="" class="SOCRADAR">
-    </footer>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/json/json.min.js"></script>
