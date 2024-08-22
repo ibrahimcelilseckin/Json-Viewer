@@ -1,4 +1,4 @@
-// Kod editörlerini oluştur
+
 var leftEditor = CodeMirror.fromTextArea(document.getElementById("left-editor"), {
     lineNumbers: true,
     mode: "application/json",
@@ -14,7 +14,7 @@ var rightEditor = CodeMirror.fromTextArea(document.getElementById("right-editor"
     lineWrapping: true
 });
 
-// Kopyala butonu işlevi
+
 document.querySelectorAll('.copy-button').forEach(function (button) {
     button.addEventListener('click', function () {
         var editor = this.closest('.editor-container').querySelector('.CodeMirror').CodeMirror;
@@ -29,42 +29,38 @@ document.querySelectorAll('.copy-button').forEach(function (button) {
 
 document.querySelectorAll('.copy-button-right').forEach(function (button) {
     button.addEventListener('click', function () {
-        // Butona en yakın sağ editördeki CodeMirror örneğini bul
+        
         var editor = document.querySelector('.right-editor .CodeMirror').CodeMirror;
         var content = editor.getValue();
         navigator.clipboard.writeText(content).then(function () {
-            console.log('Kopyalandı');
+            console.log('Copy!');
         }).catch(function (err) {
-            console.error('Kopyalama hatası: ', err);
+            console.error('Copy error!: ', err);
         });
     });
 });
 
 document.querySelector('.validate-button').addEventListener('click', function () {
     try {
-        // JSON verisini parse etmeye çalış
         JSON.parse(leftEditor.getValue());
         
-        // JSON geçerli ise başarılı bir mesaj göster
-        alert("JSON geçerli!");
+
+        alert("JSON succesful!");
     } catch (e) {
-        // JSON geçersiz ise, hata mesajını ve detayları göster
-        let errorMessage = "Geçersiz JSON: ";
+       
+        let errorMessage = "invalid JSON: ";
         
-        // JSON parse hatasında satır numarası bilgisi genellikle sağlanmaz
-        // Bu yüzden, basit bir hata mesajı gösteriyoruz
+        
         if (e instanceof SyntaxError) {
-            errorMessage += e.message;  // Hata mesajını ekle
+            errorMessage += e.message;  // ERROR Massage
         } else {
-            errorMessage += "Beklenmedik bir hata oluştu."; // Genel hata mesajı
+            errorMessage += "An unexpected error has occurred."; // General error message
         }
         
         alert(errorMessage);
     }
 });
 
-
-// Sil butonu işlevi
 document.querySelectorAll('.delete-button').forEach(function (button) {
     button.addEventListener('click', function () {
         var editor = this.closest('.editor-container').querySelector('.CodeMirror').CodeMirror;
@@ -76,7 +72,7 @@ document.querySelectorAll('.delete-button').forEach(function (button) {
     });
 });
 
-// İndirme butonu işlevi
+
 document.querySelector('.download-button').addEventListener('click', function () {
     var jsonContent = rightEditor.getValue();
     var blob = new Blob([jsonContent], { type: "application/json" });
@@ -90,7 +86,6 @@ document.querySelector('.download-button').addEventListener('click', function ()
     document.body.removeChild(a);
 });
 
-// Sample butonu 
 document.querySelector('.sample-button').addEventListener('click', function () {
     var sampleJson = `{
   "employees": {
@@ -119,30 +114,29 @@ document.querySelector('.sample-button').addEventListener('click', function () {
     leftEditor.setValue(sampleJson);
 });
 
-// JSON verisini JsTree formatına dönüştür
 function jsonToJsTree(node) {
     let result = [];
     for (const [key, value] of Object.entries(node)) {
         if (typeof value === 'object' && !Array.isArray(value)) {
-            // Nesne ise, alt düğümleri oluştur
+            
             let item = {
                 "text": key,
-                "children": jsonToJsTree(value) // Alt nesneleri işlemek için rekürsif çağrı
+                "children": jsonToJsTree(value) 
             };
             result.push(item);
         } else if (Array.isArray(value)) {
-            // Dizi ise, her bir öğeyi ayrı düğüm olarak ekle
+            
             let item = {
                 "text": key,
                 "children": value.map((val, index) => {
                     if (typeof val === 'object') {
-                        // Eğer dizi elemanı nesne ise, bu nesne için alt düğümler oluştur
+                        
                         return {
                             "text": `${key}[${index}]`,
                             "children": jsonToJsTree(val)
                         };
                     } else {
-                        // Eğer dizi elemanı basit bir değer ise, bu değeri doğrudan ekle
+
                         return {
                             "text": `${key}[${index}]: ${val}`,
                             "icon": "jstree-icon jstree-file"
@@ -152,7 +146,7 @@ function jsonToJsTree(node) {
             };
             result.push(item);
         } else {
-            // Basit bir değer ise, direkt olarak ekle
+            
             let item = {
                 "text": `${key}: ${value}`,
                 "icon": "jstree-icon jstree-file"
@@ -164,13 +158,13 @@ function jsonToJsTree(node) {
 }
 
 
-// Tree butonu 
+// Tree button
 document.querySelector('.tree-button').addEventListener('click', function () {
     try {
         var json = JSON.parse(leftEditor.getValue());
         var treeData = jsonToJsTree(json);
 
-        // Eğer JsTree daha önce başlatılmadıysa başlatın
+        
         if (!$('#tree-view').jstree(true)) {
             $('#tree-view').jstree({
                 'core': {
@@ -178,58 +172,58 @@ document.querySelector('.tree-button').addEventListener('click', function () {
                 }
             });
         } else {
-            // Eğer JsTree daha önce başlatıldıysa, veriyi güncelle
+
             $('#tree-view').jstree(true).settings.core.data = treeData;
             $('#tree-view').jstree(true).refresh();
         }
 
-        // Ağaç görünümünü göster, sağ editörü gizle
+        
         document.getElementById('tree-view').style.display = 'block';
         document.querySelector('.right-editor').style.display = 'none';
 
     } catch (e) {
-        rightEditor.setValue("invalid JSON: " + e.message); // Hata mesajını göster
+        rightEditor.setValue("invalid JSON: " + e.message); // Show error message
     }
 });
 
 
-// Dosya yükleme butonu 
+// File Upload
 document.querySelector('.load-file-button').addEventListener('click', function () {
     document.getElementById('file-input').click();
 });
 
-// Minify butonu işlevi
+
 document.querySelector('.toggle-view-button').addEventListener('click', function () {
     var treeView = document.getElementById('tree-view');
     var rightEditorContainer = document.querySelector('.right-editor');
 
-    // Sol editörden JSON verisini al ve minify et
+    
     try {
         var json = JSON.parse(leftEditor.getValue());
         var minifiedJson = JSON.stringify(json);
         rightEditor.setValue(minifiedJson);
         
-        // Minify edildiğinde JsTree'yi gizle ve sağ editörü göster
+        
         treeView.style.display = 'none';
         rightEditorContainer.style.display = 'block';
     } catch (e) {
-        rightEditor.setValue("invalid JSON: " + e.message); // Hata mesajını göster
+        rightEditor.setValue("invalid JSON: " + e.message); // ERROR Massage
     }
 });
 
 document.querySelector('.beautify-button').addEventListener('click', function () {
     try {
-        // Sol editörden JSON verisini al
+        
         var json = JSON.parse(leftEditor.getValue());
 
-        // JSON verisini formatla
+    
         var formattedJson = JSON.stringify(json, null, 2);
 
-        // Sağ editörde göster
+       
         rightEditor.setValue(formattedJson);
 
     } catch (e) {
-        rightEditor.setValue("Geçersiz JSON: " + e.message); // Hata mesajını göster
+        rightEditor.setValue("invalid JSON: " + e.message); // ERROR Massage
     }
 });
 
@@ -245,20 +239,19 @@ document.getElementById('file-input').addEventListener('change', function (event
     reader.readAsText(input.files[0]);
 });
 
-// Sol editördeki değişiklikleri sağ editöre aktar
 leftEditor.on("change", function () {
     try {
         var json = JSON.parse(leftEditor.getValue());
         var formattedJson = JSON.stringify(json, null, 2);
         rightEditor.setValue(formattedJson);
 
-        // Json verisi değiştiğinde JsTree'yi güncelle
+       
         var treeData = jsonToJsTree(json);
         $('#tree-view').jstree(true).settings.core.data = treeData;
         $('#tree-view').jstree(true).refresh();
 
     } catch (e) {
-        rightEditor.setValue("invalid JSON: " + e.message); // Hata mesajını göster
+        rightEditor.setValue("invalid JSON: " + e.message); // ERROR Massage
     }
 });
 
